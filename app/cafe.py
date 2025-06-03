@@ -16,6 +16,9 @@ class Cafe:
         if ("vaccine" not in visitor
                 or not isinstance(visitor["vaccine"], dict)):
             raise NotVaccinatedError()
+        if not isinstance(visitor["vaccine"]["expiration_date"],
+                          datetime.date):
+            raise OutdatedVaccineError
         if visitor["vaccine"]["expiration_date"] < datetime.date.today():
             raise OutdatedVaccineError()
         if not visitor.get("wearing_a_mask", False):
